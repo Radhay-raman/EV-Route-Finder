@@ -11,8 +11,6 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Checking out source code...'
-                // For a real repository, this would be: checkout scm
-                // We use checkout scm if connected to a repo.
                 checkout scm
             }
         }
@@ -20,21 +18,22 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker image...'
-                // Using bat for Windows Jenkins node
-                bat "docker build -t ${env.DOCKER_IMAGE} ."
+                bat "docker build -t %DOCKER_IMAGE% ."
             }
         }
         
         stage('Run Container') {
             steps {
-                echo 'Stopping existing container if running...'
-                catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
-                    bat "docker stop ${env.CONTAINER_NAME}"
-                    bat "docker rm ${env.CONTAINER_NAME}"
-                }
+                echo 'Stopping and removing old container (if exists)...'
+                bat '''
+                docker stop %CONTAINER_NAME%
+                docker rm %CONTAINER_NAME%
+                '''
                 
-                echo 'Starting new container...'
-                bat "docker run -d -p ${env.PORT}:${env.PORT} --name ${env.CONTAINER_NAME} ${env.DOCKER_IMAGE}"
+                echo 'Running new container...'
+                bat '''
+                docker run -d -p %PORT%:%PORT% --name %CONTAINER_NAME% %DOCKER_IMAGE%
+                '''
             }
         }
     }
