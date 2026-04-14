@@ -1,0 +1,182 @@
+/* Dark UI suitable for an EV Dashboard */
+:root {
+  --bg-color: #121212;
+  --panel-bg: #1e1e1e;
+  --text-color: #e0e0e0;
+  --accent-color: #00d2ff;
+  --alert-color: #ff4757;
+  --success-color: #2ed573;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--panel-bg);
+  padding: 15px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+  font-size: 24px;
+  color: var(--accent-color);
+  letter-spacing: 1px;
+}
+
+.status-indicators {
+  display: flex;
+  gap: 20px;
+}
+
+.indicator {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+}
+
+.alert {
+  background-color: rgba(255, 71, 87, 0.1);
+  color: var(--alert-color);
+  border: 1px solid var(--alert-color);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.main-content {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  min-height: 0; /* Important for flex child with map */
+}
+
+.controls-panel {
+  flex: 0 0 350px;
+  background-color: var(--panel-bg);
+  padding: 25px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+.controls-panel h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 10px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-size: 14px;
+  color: #aaa;
+}
+
+.input-group input {
+  padding: 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.input-group input:focus {
+  border-color: var(--accent-color);
+}
+
+button {
+  background-color: var(--accent-color);
+  color: #000;
+  border: none;
+  padding: 14px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #00b8e6;
+}
+
+.route-info {
+  background-color: rgba(0, 210, 255, 0.1);
+  border: 1px solid var(--accent-color);
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.route-info h3 {
+  color: var(--accent-color);
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.demo-controls {
+  margin-top: auto;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.map-panel {
+  flex: 1;
+  background-color: var(--panel-bg);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  /* Filter makes the map look dark mode! */
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
